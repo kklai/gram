@@ -49,13 +49,17 @@
         
         createdDate = new Date(Number(data.data[data.data.length - 1].created_time) * 1000);
         createdYear = createdDate.getFullYear();
-        if (data.pagination.next_url && createdYear == 2015) {
+        if (data.pagination.next_url) {
           getMore(data.pagination.next_url);
         }
       }
     });
   }
 
+  var containerW = $("body").width();
+  var imgW = containerW / 3;
+  var imgX = 0;
+  var imgY = 0;
   function findTop() {
     top = _.sortBy(top, function(d){
       return d.likes.count;
@@ -63,9 +67,23 @@
     top.reverse();
     top = top.slice(0,9);
 
-    _.each(top, function(t){
+    _.each(top, function(t, i){
+      var c = document.getElementById("thingy");
+      var ctx = c.getContext("2d");
+      ctx.canvas.width = containerW;
+      ctx.canvas.height = containerW;
 
-      $(".best9").append("<img src='" + t.images.standard_resolution.url + "' class='g-image-grid' />");
+      var img = new Image();
+      img.onload = function() {
+        if ((i%3) === 0 && i !== 0) {
+          imgY += imgW;
+          imgX = 0;
+        }
+        console.log(imgX, imgY);
+        ctx.drawImage(img, imgX, imgY, imgW, imgW);
+      };
+      img.src = t.images.standard_resolution.url;
+      imgX += imgW;
     });
   }
 
@@ -81,16 +99,16 @@
           createdDate = new Date(Number(d.created_time) * 1000);
           createdYear = createdDate.getFullYear();
 
-          if (createdYear == 2015) {
+          // if (createdYear == 2015) {
             top.push(d);
-          }
+          // }
         });
         i++;
-        console.log("Page " + i)
+        console.log("Page " + i);
         
         createdDate = new Date(Number(data.data[data.data.length - 1].created_time) * 1000);
         createdYear = createdDate.getFullYear();
-        if (data.pagination.next_url && createdYear == 2015) {
+        if (data.pagination.next_url) {
           getMore(data.pagination.next_url);
         } else {
           findTop();
