@@ -1,0 +1,41 @@
+.g-image-grid {
+  width: 33%;
+}
+
+.best9 {
+  max-width: 1050px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+body {
+  padding: 100px;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Oxygen", sans-serif;
+  font-weight: 500;
+}
+
+input {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+button.login, button.generate {
+  padding: 10 30px;
+  box-shadow: none;
+  border: 3px solid #cc0000;
+  background-color: #fff;
+  font-size: 17px;
+  display: inline-block;
+  text-align: center;
+  margin: 0 auto;
+}
+button.login:hover, button.generate:hover {
+  background-color: #ececec;
+}
